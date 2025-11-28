@@ -17,10 +17,9 @@ export default function IndividualPage({
 
     async function clientAction(formData: FormData) {
         setIsSubmitting(true)
-        // actions.ts へ送信
         await submitIndividualReport(formData)
 
-        alert('保存しました！体験・入塾の獲得ナイスです！')
+        alert('保存しました！お疲れ様でした。')
         router.push('/')
     }
 
@@ -55,7 +54,7 @@ export default function IndividualPage({
                         />
                     </div>
 
-                    {/* 生徒名（必須） */}
+                    {/* 生徒名 */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">生徒名 (またはイニシャル)</label>
                         <input
@@ -67,25 +66,23 @@ export default function IndividualPage({
                         />
                     </div>
 
-                    {/* ★★★ ここを変更：成果ベースの選択肢にアップデート ★★★ */}
+                    {/* ★★★ 5段階評価に変更 ★★★ */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">面談結果（ネクストアクション）</label>
                         <div className="grid grid-cols-2 gap-3">
                             {[
-                                // Sランク → 入塾（即決）
                                 { val: '入塾', label: '🈴 入塾 (即決)', color: 'border-red-200 bg-red-50 text-red-700' },
-                                // Aランク相当 → 体験申込（中間CV）
                                 { val: '体験', label: '✨ 体験申込', color: 'border-orange-200 bg-orange-50 text-orange-700' },
-                                // Bランク相当 → 検討中
-                                { val: '検討', label: '🤔 検討 (持ち帰り)', color: 'border-blue-200 bg-blue-50 text-blue-700' },
-                                // Cランク相当 → 見送り
-                                { val: '見送り', label: '👋 見送り (不可)', color: 'border-gray-200 bg-gray-50 text-gray-700' },
+                                { val: '有望', label: '👍 有望 (感触良)', color: 'border-emerald-200 bg-emerald-50 text-emerald-700' },
+                                { val: '検討', label: '🤔 検討 (五分)', color: 'border-blue-200 bg-blue-50 text-blue-700' },
+                                // 見送りは横幅いっぱいに表示して押しやすく、かつ区別する
+                                { val: '見送り', label: '👋 見送り (不可)', color: 'col-span-2 border-gray-200 bg-gray-50 text-gray-600' },
                             ].map((item) => (
-                                <label key={item.val} className="cursor-pointer">
+                                <label key={item.val} className={`cursor-pointer ${item.color.includes('col-span-2') ? 'col-span-2' : ''}`}>
                                     <input type="radio" name="result" value={item.val} className="peer sr-only" required />
-                                    <div className={`text-center p-4 rounded-xl border-2 hover:opacity-80 peer-checked:ring-2 peer-checked:ring-offset-1 peer-checked:ring-black transition-all shadow-sm ${item.color}`}>
-                                        <span className="font-bold text-lg block">{item.label.split(' ')[0]}</span>
-                                        <span className="text-xs opacity-80">{item.label.split(' ')[1]}</span>
+                                    <div className={`text-center p-3 rounded-xl border-2 hover:opacity-80 peer-checked:ring-2 peer-checked:ring-offset-1 peer-checked:ring-black transition-all shadow-sm h-full flex flex-col justify-center items-center ${item.color}`}>
+                                        <span className="font-bold text-lg">{item.label.split(' ')[0]}</span>
+                                        <span className="text-xs opacity-80 mt-1">{item.label.split(' ')[1]}</span>
                                     </div>
                                 </label>
                             ))}
