@@ -1,8 +1,7 @@
-// app/individual/page.tsx
 'use client'
 
 import { useState } from 'react'
-import { submitReport } from '../actions'
+import { submitIndividualReport } from '../actions'
 import { useRouter } from 'next/navigation'
 import { ChevronLeft } from 'lucide-react'
 import Link from 'next/link'
@@ -18,9 +17,10 @@ export default function IndividualPage({
 
     async function clientAction(formData: FormData) {
         setIsSubmitting(true)
-        formData.append('type', 'individual')
-        await submitReport(formData)
-        alert('保存しました！お疲れ様です。')
+        // actions.ts へ送信
+        await submitIndividualReport(formData)
+
+        alert('保存しました！体験・入塾の獲得ナイスです！')
         router.push('/')
     }
 
@@ -67,20 +67,25 @@ export default function IndividualPage({
                         />
                     </div>
 
-                    {/* 結果ランク */}
+                    {/* ★★★ ここを変更：成果ベースの選択肢にアップデート ★★★ */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">感触・結果</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">面談結果（ネクストアクション）</label>
                         <div className="grid grid-cols-2 gap-3">
                             {[
-                                { val: 'S', label: 'S (即決)', color: 'border-red-200 bg-red-50 text-red-700' },
-                                { val: 'A', label: 'A (有望)', color: 'border-orange-200 bg-orange-50 text-orange-700' },
-                                { val: 'B', label: 'B (検討)', color: 'border-blue-200 bg-blue-50 text-blue-700' },
-                                { val: 'C', label: 'C (見送り)', color: 'border-gray-200 bg-gray-50 text-gray-700' },
-                            ].map((rank) => (
-                                <label key={rank.val} className="cursor-pointer">
-                                    <input type="radio" name="result" value={rank.val} className="peer sr-only" required />
-                                    <div className={`text-center p-3 rounded-lg border-2 hover:opacity-80 peer-checked:ring-2 peer-checked:ring-offset-1 peer-checked:ring-black transition-all ${rank.color}`}>
-                                        <span className="font-bold">{rank.label}</span>
+                                // Sランク → 入塾（即決）
+                                { val: '入塾', label: '🈴 入塾 (即決)', color: 'border-red-200 bg-red-50 text-red-700' },
+                                // Aランク相当 → 体験申込（中間CV）
+                                { val: '体験', label: '✨ 体験申込', color: 'border-orange-200 bg-orange-50 text-orange-700' },
+                                // Bランク相当 → 検討中
+                                { val: '検討', label: '🤔 検討 (持ち帰り)', color: 'border-blue-200 bg-blue-50 text-blue-700' },
+                                // Cランク相当 → 見送り
+                                { val: '見送り', label: '👋 見送り (不可)', color: 'border-gray-200 bg-gray-50 text-gray-700' },
+                            ].map((item) => (
+                                <label key={item.val} className="cursor-pointer">
+                                    <input type="radio" name="result" value={item.val} className="peer sr-only" required />
+                                    <div className={`text-center p-4 rounded-xl border-2 hover:opacity-80 peer-checked:ring-2 peer-checked:ring-offset-1 peer-checked:ring-black transition-all shadow-sm ${item.color}`}>
+                                        <span className="font-bold text-lg block">{item.label.split(' ')[0]}</span>
+                                        <span className="text-xs opacity-80">{item.label.split(' ')[1]}</span>
                                     </div>
                                 </label>
                             ))}
