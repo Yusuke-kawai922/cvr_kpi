@@ -2,7 +2,7 @@
 
 import { redirect } from 'next/navigation';
 
-// ★★★ ここにあなたのGASアプリのURLを埋め込みました ★★★
+// ★★★ Vercelを壊さないために、URLを新しいものに更新しました ★★★
 const GAS_URL = "https://script.google.com/macros/s/AKfycbx5yKu2alK82eKTiklbtX3zttIH4WM83LUuqzkIf5n0hypui8BvjV_16xQ5AiLjQiCR5w/exec";
 
 export async function submitReport(formData: FormData) {
@@ -28,7 +28,6 @@ export async function submitReport(formData: FormData) {
     }
 
     // 2. GASに送るデータの作成
-    // GAS側のスクリプトに合わせてデータを整形します
     const payload = {
         type: type === 'individual' ? 'INDIVIDUAL' : 'GROUP',
         staff: staff,
@@ -54,11 +53,9 @@ export async function submitReport(formData: FormData) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(payload),
-            // Vercel等からGASを叩く場合、リダイレクト追跡が必要
             redirect: 'follow',
         });
 
-        // レスポンスの確認
         if (response.ok) {
             console.log('GASへの送信成功！');
         } else {
