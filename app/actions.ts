@@ -2,7 +2,7 @@
 
 import { redirect } from 'next/navigation';
 
-// ★★★ Vercelを壊さないために、URLを新しいものに更新しました ★★★
+// ★★★ 更新されたGASのURL（バージョン固定） ★★★
 const GAS_URL = "https://script.google.com/macros/s/AKfycbyegrrKdLQPfFDPje4B6arcsG92OnLpC5WnwXumznRsYoH5P-QyXRdtNmzgJTQHl3G_Og/exec";
 
 export async function submitReport(formData: FormData) {
