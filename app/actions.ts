@@ -3,7 +3,7 @@
 import { redirect } from 'next/navigation';
 
 // ★★★ Vercelを壊さないために、URLを新しいものに更新しました ★★★
-const GAS_URL = "https://script.google.com/macros/s/AKfycbx5yKu2alK82eKTiklbtX3zttIH4WM83LUuqzkIf5n0hypui8BvjV_16xQ5AiLjQiCR5w/exec";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbyegrrKdLQPfFDPje4B6arcsG92OnLpC5WnwXumznRsYoH5P-QyXRdtNmzgJTQHl3G_Og/exec";
 
 export async function submitReport(formData: FormData) {
     // 1. フォームデータの取得
