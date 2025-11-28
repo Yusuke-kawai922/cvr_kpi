@@ -3,7 +3,7 @@
 import { redirect } from 'next/navigation';
 
 // ★★★ ここにあなたのGASアプリのURLを埋め込みました ★★★
-const GAS_URL = "https://script.google.com/macros/s/AKfycbw-Mlr0zoqOc6e5EsZX7kkTe901ilL5RM3haU-a4IivN5p8O-V4_hwBBYpK6EhNw67WGw/exec";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbx5yKu2alK82eKTiklbtX3zttIH4WM83LUuqzkIf5n0hypui8BvjV_16xQ5AiLjQiCR5w/exec";
 
 export async function submitReport(formData: FormData) {
     // 1. フォームデータの取得
